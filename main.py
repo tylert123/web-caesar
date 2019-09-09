@@ -9,19 +9,19 @@ encrypt_form = """
 <html>
     <head>
         <style>
-            form {
+            form {{
                 background-color: #eee;
                 padding: 20px;
                 margin: 0 auto;
                 width: 540px;
                 font: 16px sans-serif;
                 border-radius: 10px;
-            }
-            textarea {
+            }}
+            textarea {{
                 margin: 10px 0;
                 width: 540px;
                 height: 120px;
-            }
+            }}
         </style>
         <title>Caesar Encryption</title>
     </head>
@@ -32,7 +32,7 @@ encrypt_form = """
                 <input type="text" name="rot" value="0">
             </label>
             <label>
-                <textarea name="text"></textarea>
+                <textarea name="text">{0}</textarea>
             </label>
             <input type="submit">
         </form>
@@ -42,7 +42,7 @@ encrypt_form = """
 
 @app.route('/')
 def index():
-    return encrypt_form
+    return encrypt_form.format('')
 
 @app.route('/', methods=['POST'])
 def encryption():
@@ -50,6 +50,6 @@ def encryption():
     entered=request.form['text']
     encrypted_text=encrypt(entered,rotate)
     
-    return '<h1>'+encrypted_text+'</h1>'
+    return encrypt_form.format(encrypted_text)
 
 app.run()
