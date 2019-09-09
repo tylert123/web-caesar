@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from caesar import encrypt
 
 app = Flask(__name__)
@@ -43,5 +43,13 @@ encrypt_form = """
 @app.route('/')
 def index():
     return encrypt_form
+
+@app.route('/', methods=['POST'])
+def encryption():
+    rotate=request.form['rot']
+    entered=request.form['text']
+    encrypted_text=encrypt(entered,rotate)
+    
+    return '<h1>'+encrypted_text+'</h1>'
 
 app.run()
